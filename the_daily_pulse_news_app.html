@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Daily Pulse — Modern Editorial News</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Playfair Display for Editorial Feel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+          },
+          colors: {
+            brand: {
+              50: '#fff1f2',
+              100: '#ffe4e6',
+              500: '#f43f5e',
+              600: '#e11d48',
+              700: '#be123c',
+              900: '#881337',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 dark:bg-slate-900/90 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3 md:h-20 gap-3">
+        
+        <!-- Brand & Mobile Actions -->
+        <div class="flex items-center justify-between">
+          <a href="#" id="brand-logo" class="flex items-center gap-3 group">
+            <div class="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-md shadow-rose-600/20 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+            <div>
+              <span class="font-serif text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white block leading-none">
+                The Daily Pulse
+              </span>
+              <span id="current-date" class="text-[11px] font-medium uppercase tracking-widest text-slate-500 dark:text-slate-400 mt-1 block">
+                Edition
+              </span>
+            </div>
+          </a>
+
+          <!-- Mobile Right Controls -->
+          <div class="flex items-center gap-2 md:hidden">
+            <button id="mobile-saved-btn" aria-label="Open Saved Articles" class="relative p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              <span id="mobile-saved-badge" class="hidden absolute -top-1 -right-1 w-5 h-5 rounded-full bg-rose-600 text-white text-xs font-bold flex items-center justify-center">0</span>
+            </button>
+            <button id="mobile-theme-toggle" aria-label="Toggle Dark Mode" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+              <!-- Sun Icon -->
+              <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+              <!-- Moon Icon -->
+              <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Search Bar & Desktop Controls -->
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <div class="relative flex-1 md:w-80 lg:w-96">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search headlines, topics, authors..."
+              class="w-full pl-10 pr-9 py-2.5 text-sm rounded-xl bg-slate-100 dark:bg-slate-800/90 border border-transparent focus:border-rose-500 focus:bg-white dark:focus:bg-slate-900 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none transition"
+            />
+            <button id="clear-search-btn" aria-label="Clear search" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Desktop Saved Drawer Trigger -->
+          <button id="desktop-saved-btn" class="hidden md:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-sm font-medium transition">
+            <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+            <span>Saved</span>
+            <span id="desktop-saved-badge" class="px-2 py-0.5 text-xs font-bold rounded-full bg-rose-600 text-white">0</span>
+          </button>
+
+          <!-- Desktop Theme Toggle -->
+          <button id="desktop-theme-toggle" aria-label="Toggle Dark Mode" class="hidden md:inline-flex items-center justify-center p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+            <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            <svg class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <nav aria-label="News Categories" class="flex items-center gap-2 overflow-x-auto py-3 border-t border-slate-100 dark:border-slate-800/80 no-scrollbar">
+        <div id="category-tabs" class="flex items-center gap-2">
+          <!-- Injected dynamically via JS -->
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Active Filter / Search Status Banner -->
+    <div id="filter-status-bar" class="hidden mb-6 flex items-center justify-between bg-white dark:bg-slate-900 px-4 py-3 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+      <p id="filter-status-text" class="text-sm text-slate-600 dark:text-slate-300 font-medium"></p>
+      <button id="reset-filters-btn" class="text-xs font-semibold text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 underline">
+        Reset Filters
+      </button>
+    </div>
+
+    <!-- Featured Hero Section (Breaking News / Top Story) -->
+    <section id="hero-section" aria-label="Featured Story" class="mb-12">
+      <!-- Populated by JS -->
+    </section>
+
+    <!-- Section Header for Grid -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-6 rounded-full bg-rose-600"></span>
+        <h2 id="feed-heading" class="font-serif text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white">
+          Latest Stories
+        </h2>
+      </div>
+      <span id="article-count" class="text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">
+        Showing 0 articles
+      </span>
+    </div>
+
+    <!-- Responsive News Grid -->
+    <section id="articles-grid" aria-label="News Articles" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <!-- Article cards injected by JS -->
+    </section>
+
+    <!-- Empty Search State -->
+    <div id="empty-state" class="hidden py-16 text-center bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
+      <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-slate-900 dark:text-white mb-2">No matching stories found</h3>
+      <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto text-sm mb-6">
+        We couldn't find any articles matching your current search terms or category selection. Try broadening your search.
+      </p>
+      <button id="empty-reset-btn" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold transition shadow-sm">
+        View All Stories
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Editorial Footer -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-lg bg-rose-600 flex items-center justify-center text-white font-serif font-bold text-sm">P</div>
+        <span class="font-serif font-bold text-lg text-slate-900 dark:text-white">The Daily Pulse</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 text-center">
+        Independent digital journalism &amp; curated global intelligence. Built for clarity.
+      </p>
+      <div class="text-xs text-slate-400 dark:text-slate-500">
+        &copy; <span id="footer-year"></span> The Daily Pulse Media
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Article Reader Modal -->
+  <div id="reader-modal" role="dialog" aria-modal="true" aria-labelledby="modal-headline" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <!-- Backdrop -->
+    <div id="modal-backdrop" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity"></div>
+
+    <!-- Modal Panel -->
+    <div class="relative min-h-screen flex items-center justify-center p-3 sm:p-6">
+      <div class="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden my-8">
+        
+        <!-- Sticky Modal Top Action Bar -->
+        <div class="sticky top-0 z-20 flex items-center justify-between px-5 sm:px-8 py-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-100 dark:border-slate-800">
+          <span id="modal-category-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-700 dark:bg-rose-950/80 dark:text-rose-300">
+            Category
+          </span>
+
+          <div class="flex items-center gap-2">
+            <!-- Share Button -->
+            <button id="modal-share-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-medium transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              <span>Share</span>
+            </button>
+
+            <!-- Modal Bookmark Toggle -->
+            <button id="modal-bookmark-btn" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs sm:text-sm font-medium transition">
+              <svg id="modal-bookmark-icon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+              <span id="modal-bookmark-label">Save</span>
+            </button>
+
+            <!-- Close Modal Button -->
+            <button id="close-modal-btn" aria-label="Close article" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-rose-100 dark:hover:bg-rose-950 text-slate-600 dark:text-slate-300 hover:text-rose-600 transition">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal Article Body -->
+        <article class="px-5 sm:px-10 py-6 sm:py-8">
+          <h1 id="modal-headline" class="font-serif text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4">
+            Article Headline
+          </h1>
+
+          <p id="modal-summary" class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-6 font-normal">
+            Article summary goes here.
+          </p>
+
+          <!-- Author Meta Row -->
+          <div class="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-slate-100 dark:border-slate-800 mb-6">
+            <div class="flex items-center gap-3">
+              <div id="modal-author-avatar" class="w-10 h-10 rounded-full bg-rose-600 text-white font-bold flex items-center justify-center text-sm">
+                AU
+              </div>
+              <div>
+                <div id="modal-author" class="text-sm font-semibold text-slate-900 dark:text-white">Author Name</div>
+                <div id="modal-author-role" class="text-xs text-slate-500 dark:text-slate-400">Senior Correspondent</div>
+              </div>
+            </div>
+            <div class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex items-center gap-3">
+              <span id="modal-date">Date</span>
+              <span>&bull;</span>
+              <span id="modal-read-time">5 min read</span>
+            </div>
+          </div>
+
+          <!-- Hero Image inside Modal -->
+          <div class="rounded-2xl overflow-hidden mb-8 bg-slate-100 dark:bg-slate-800">
+            <img id="modal-image" src="" alt="" class="w-full h-64 sm:h-96 object-cover" />
+          </div>
+
+          <!-- Full Multi-paragraph Editorial Content -->
+          <div id="modal-content" class="space-y-5 text-slate-700 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+            <!-- Paragraphs injected by JS -->
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Articles Slide-over Drawer -->
+  <div id="saved-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" class="hidden fixed inset-0 z-50 overflow-hidden">
+    <!-- Backdrop -->
+    <div id="drawer-backdrop" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs transition-opacity"></div>
+
+    <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+      <div class="w-screen max-w-md bg-white dark:bg-slate-900 shadow-2xl border-l border-slate-200 dark:border-slate-800 flex flex-col">
+        
+        <!-- Drawer Header -->
+        <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <svg class="w-5 h-5 text-rose-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+            <h2 id="drawer-title" class="font-serif text-xl font-bold text-slate-900 dark:text-white">
+              Saved Articles
+            </h2>
+          </div>
+          <button id="close-drawer-btn" aria-label="Close Saved Articles" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Drawer Body (Saved List) -->
+        <div id="saved-list-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+          <!-- Saved items injected via JS -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div id="drawer-footer" class="hidden px-6 py-4 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/60 flex items-center justify-between">
+          <span id="drawer-count-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">0 stories saved</span>
+          <button id="clear-all-saved-btn" class="text-xs font-semibold text-rose-600 hover:text-rose-700 dark:text-rose-400">
+            Clear All
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Banner -->
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300">
+    <div class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-xl border border-slate-700 dark:border-slate-200 text-sm font-medium">
+      <span id="toast-icon" class="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </span>
+      <span id="toast-message">Copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Application Logic & Mock Data -->
+  <script>
+    /**
+     * Rich, realistic mock articles dataset across all required categories.
+     * Uses high-contrast editorial placeholder images with fallback protection.
+     */
+    const ARTICLES_DATA = [
+      {
+        id: 'art-1',
+        featured: true,
+        category: 'Technology',
+        headline: 'Solid-State Batteries Enter Commercial Aviation Testing After Milestone Energy Density Breakthrough',
+        summary: 'A consortium of aerospace engineers and materials scientists has successfully tested a 600 Wh/kg solid-state battery pack capable of powering regional commuter aircraft across 800-mile routes.',
+        author: 'Elena Vance',
+        authorRole: 'Chief Technology Correspondent',
+        timestamp: '2 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '6 min read',
+        image: 'https://placehold.co/1200x700/0f172a/f8fafc?text=Next-Gen+Electric+Aviation',
+        content: [
+          'ZURICH — For decades, the dream of zero-emission commercial regional flight has run up against a stubborn law of physics: conventional lithium-ion batteries are simply too heavy for the energy they store. Today, a joint European-Asian aerospace consortium demonstrated a working prototype that could rewrite that equation.',
+          'During a six-hour ground and altitude simulation test in Zurich, the newly unveiled ceramic-electrolyte solid-state battery module achieved a sustained energy density of 600 watt-hours per kilogram—more than double that of current automotive battery packs.',
+          'Unlike liquid-electrolyte cells, the solid-state architecture eliminates thermal runaway risks while allowing rapid 18-minute turnaround charging between short-haul flights. Regional carriers operating 50- to 90-seat turboprop routes are expected to be the earliest adopters.',
+          'Regulatory certification flights are scheduled to begin in Q2 next year, with commercial commuter corridors between Nordic hubs targeted for initial deployment.'
+        ]
+      },
+      {
+        id: 'art-2',
+        featured: false,
+        category: 'World',
+        headline: 'Mediterranean Nations Sign Historic Deep-Sea Biodiversity & Submarine Cable Protection Accord',
+        summary: 'Twenty-one coastal states have ratified a unified framework establishing protected marine corridors while safeguarding vital transcontinental fiber-optic infrastructure.',
+        author: 'Marcus Sterling',
+        authorRole: 'Diplomatic Affairs Editor',
+        timestamp: '3 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '5 min read',
+        image: 'https://placehold.co/800x520/1e3a8a/eff6ff?text=Mediterranean+Marine+Accord',
+        content: [
+          'VALLETTA — Ministers from 21 Mediterranean coastal nations concluded three days of intensive negotiations today by signing the Valletta Maritime Accord, a landmark treaty balancing ecological conservation with critical digital infrastructure.',
+          'The agreement designates 30% of deep-water basins as strictly protected ecological zones, restricting bottom-trawling and deep-seabed mining in fragile coral habitats.',
+          'Simultaneously, the pact establishes coordinated naval monitoring corridors to protect the dense network of submarine fiber-optic cables that carry over 90% of data traffic between Europe, North Africa, and Asia.'
+        ]
+      },
+      {
+        id: 'art-3',
+        featured: false,
+        category: 'Business',
+        headline: 'Global Supply Chains Pivot Toward Regional Micro-Factories as Automation Costs Plunge',
+        summary: 'Manufacturers are replacing sprawling overseas mega-plants with agile, AI-orchestrated regional production hubs closer to end consumers.',
+        author: 'Priya Nair',
+        authorRole: 'Global Markets Columnist',
+        timestamp: '4 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '4 min read',
+        image: 'https://placehold.co/800x520/064e3b/ecfdf5?text=Automated+Micro-Factories',
+        content: [
+          'MUMBAI — A quiet revolution is reshaping industrial real estate from Pune to Guadalajara. Rather than concentrating production in massive single-country complexes, multinational brands are deploying modular micro-factories within 300 miles of major metropolitan markets.',
+          'Driven by a 45% drop in collaborative robotics costs over the past three years, these compact facilities can switch product lines in hours rather than weeks.',
+          'Economists note that while upfront capital expenditure is higher, companies slash maritime freight emissions, avoid tariff bottlenecks, and reduce inventory carrying costs by up to 35%.'
+        ]
+      },
+      {
+        id: 'art-4',
+        featured: false,
+        category: 'Science',
+        headline: 'James Webb Successor Prototype Mirrors Pass Cryogenic Alignment Test at Minus 240°C',
+        summary: 'Ultra-lightweight silicon carbide mirror segments maintained nanometer-level precision under deep-space thermal vacuum conditions.',
+        author: 'Dr. Aris Thorne',
+        authorRole: 'Astrophysics & Space Writer',
+        timestamp: '5 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '7 min read',
+        image: 'https://placehold.co/800x520/312e81/eef2ff?text=Deep+Space+Optics+Lab',
+        content: [
+          'PASADENA — Engineers at the Optical Cryogenic Test Facility confirmed this morning that the next-generation Habitable Worlds Observatory mirror array passed its most grueling thermal stability trial to date.',
+          'Cooled to minus 240 degrees Celsius inside a cavernous vacuum chamber, the 18 hexagonal silicon carbide segments adjusted their curvature within 4 nanometers—roughly one ten-thousandth the width of a human hair.',
+          'That unprecedented stability is essential for directly imaging Earth-sized exoplanets orbiting sun-like stars and analyzing their atmospheres for biosignature gases such as oxygen and methane.'
+        ]
+      },
+      {
+        id: 'art-5',
+        featured: false,
+        category: 'Sports',
+        headline: 'Underdog Bengaluru Strikers Clinch Continental Champions Cup in Dramatic Penalty Shootout',
+        summary: 'Goalkeeper Arjun Mehta saved three consecutive spot-kicks in front of 68,000 roaring supporters to deliver the club’s first-ever continental silverware.',
+        author: 'Devika Menon',
+        authorRole: 'Senior Sports Reporter',
+        timestamp: '6 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '4 min read',
+        image: 'https://placehold.co/800x520/7f1d1d/fef2f2?text=Champions+Cup+Final',
+        content: [
+          'BENGALURU — Under torrential late-evening rain, the Bengaluru Strikers authored one of the greatest upsets in modern club football, defeating three-time defending champions Al-Riyadh FC 4-2 on penalties after a breathless 2-2 extra-time draw.',
+          'Captain Rohan Das equalized in the 89th minute with a soaring header before 23-year-old goalkeeper Arjun Mehta took center stage during the shootout.',
+          'Reading every stutter-step with uncanny composure, Mehta denied three straight attempts, sparking euphoric celebrations across the stadium and downtown streets.'
+        ]
+      },
+      {
+        id: 'art-6',
+        featured: false,
+        category: 'Entertainment',
+        headline: 'Analog Revival: Independent Cinemas Report Record Attendance for 70mm Film Screenings',
+        summary: 'Audiences craving tactile, communal moviegoing experiences are flocking to restored large-format film projections across major cultural capitals.',
+        author: 'Clara Beaumont',
+        authorRole: 'Culture & Film Critic',
+        timestamp: '7 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '5 min read',
+        image: 'https://placehold.co/800x520/581c87/faf5ff?text=70mm+Cinema+Revival',
+        content: [
+          'LONDON — While streaming platforms wrestle with subscription fatigue, independent repertory theaters equipped with vintage 70mm celluloid projectors are selling out weeks in advance.',
+          'From London’s Southbank to Tokyo and New York, younger cinephiles make up nearly 60% of ticket buyers for photochemical film festivals and director-curated midnight screenings.',
+          'Theater operators say the warmth, grain, and unrepeatable physical presence of real film reels turn an ordinary Tuesday night screening into an unforgettable collective event.'
+        ]
+      },
+      {
+        id: 'art-7',
+        featured: false,
+        category: 'Technology',
+        headline: 'Open-Source Local AI Models Match Cloud Giants on Edge Devices Without Internet Access',
+        summary: 'New quantization breakthroughs allow sub-10-billion-parameter reasoning models to run smoothly on standard laptops and smartphones.',
+        author: 'Kenji Takahashi',
+        authorRole: 'AI Systems Analyst',
+        timestamp: '8 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '5 min read',
+        image: 'https://placehold.co/800x520/0f766e/f0fdfa?text=Edge+AI+Architecture',
+        content: [
+          'TOKYO — Privacy-first artificial intelligence took a major leap forward this week as researchers released an open-weights 8-billion-parameter model capable of running entirely offline on consumer hardware.',
+          'Using a novel 2.5-bit mixed-precision quantization technique, the model retains 96% of its full-precision coding and analytical reasoning benchmarks while consuming less than 4 gigabytes of unified memory.',
+          'Enterprise security teams and journalists working in sensitive environments have welcomed the shift away from mandatory cloud telemetry.'
+        ]
+      },
+      {
+        id: 'art-8',
+        featured: false,
+        category: 'Science',
+        headline: 'Vertical Kelp Farms Off North Atlantic Coast Sequester Carbon 20 Times Faster Than Forests',
+        summary: 'Marine biologists document thriving marine nurseries and rapid carbon capture across offshore regenerative aquaculture arrays.',
+        author: 'Hannah Lindqvist',
+        authorRole: 'Climate & Ecology Desk',
+        timestamp: '9 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '6 min read',
+        image: 'https://placehold.co/800x520/14532d/f0fdf4?text=Regenerative+Kelp+Farms',
+        content: [
+          'REYKJAVIK — Suspended ten meters beneath the swells of the North Atlantic, swaying ribbons of sugar kelp are proving to be one of nature’s most efficient carbon sinks.',
+          'A three-year longitudinal study published today measured biomass growth rates exceeding two feet per day during peak spring sunlight, capturing carbon at twenty times the per-acre rate of mature terrestrial woodlands.',
+          'Harvested kelp is subsequently processed into biodegradable packaging films and livestock feed additives that cut agricultural methane emissions.'
+        ]
+      },
+      {
+        id: 'art-9',
+        featured: false,
+        category: 'World',
+        headline: 'High-Speed Night Sleeper Trains Expand Across 14 European Capitals as Short-Haul Flights Decline',
+        summary: 'Next-generation acoustic-insulated sleeper cabins allow travelers to board in Paris or Vienna at dusk and wake up refreshed across the continent.',
+        author: 'Lukas Meyer',
+        authorRole: 'European Infrastructure Correspondent',
+        timestamp: '11 hours ago',
+        publishDate: 'November 24, 2026',
+        readTime: '4 min read',
+        image: 'https://placehold.co/800x520/1e293b/f8fafc?text=Continental+Night+Express',
+        content: [
+          'VIENNA — Europe’s rail renaissance accelerated this week with the launch of six new cross-border night sleeper routes linking Amsterdam, Vienna, Rome, Barcelona, and Warsaw.',
+          'Featuring hotel-style private mini-suites, high-speed satellite Wi-Fi, and whisper-quiet bogies, the trains operate at speeds up to 230 km/h on dedicated high-speed corridors.',
+          'Transport ministries report a 28% drop in short-haul aviation bookings along corridors served by the new overnight expresses.'
+        ]
+      }
+    ];
+
+    const CATEGORIES = ['All', 'Technology', 'World', 'Business', 'Science', 'Sports', 'Entertainment'];
+    const STORAGE_KEY = 'daily_pulse_saved_ids_v1';
+
+    // Application State
+    const state = {
+      selectedCategory: 'All',
+      searchQuery: '',
+      savedIds: new Set(),
+      activeModalArticleId: null,
+      toastTimer: null
+    };
+
+    // DOM Element References
+    const elements = {
+      currentDate: document.getElementById('current-date'),
+      footerYear: document.getElementById('footer-year'),
+      categoryTabs: document.getElementById('category-tabs'),
+      searchInput: document.getElementById('search-input'),
+      clearSearchBtn: document.getElementById('clear-search-btn'),
+      filterStatusBar: document.getElementById('filter-status-bar'),
+      filterStatusText: document.getElementById('filter-status-text'),
+      resetFiltersBtn: document.getElementById('reset-filters-btn'),
+      emptyResetBtn: document.getElementById('empty-reset-btn'),
+      heroSection: document.getElementById('hero-section'),
+      feedHeading: document.getElementById('feed-heading'),
+      articleCount: document.getElementById('article-count'),
+      articlesGrid: document.getElementById('articles-grid'),
+      emptyState: document.getElementById('empty-state'),
+      // Theme buttons
+      desktopThemeToggle: document.getElementById('desktop-theme-toggle'),
+      mobileThemeToggle: document.getElementById('mobile-theme-toggle'),
+      // Saved drawer & badges
+      desktopSavedBtn: document.getElementById('desktop-saved-btn'),
+      mobileSavedBtn: document.getElementById('mobile-saved-btn'),
+      desktopSavedBadge: document.getElementById('desktop-saved-badge'),
+      mobileSavedBadge: document.getElementById('mobile-saved-badge'),
+      savedDrawer: document.getElementById('saved-drawer'),
+      drawerBackdrop: document.getElementById('drawer-backdrop'),
+      closeDrawerBtn: document.getElementById('close-drawer-btn'),
+      savedListContainer: document.getElementById('saved-list-container'),
+      drawerFooter: document.getElementById('drawer-footer'),
+      drawerCountLabel: document.getElementById('drawer-count-label'),
+      clearAllSavedBtn: document.getElementById('clear-all-saved-btn'),
+      // Reader Modal
+      readerModal: document.getElementById('reader-modal'),
+      modalBackdrop: document.getElementById('modal-backdrop'),
+      closeModalBtn: document.getElementById('close-modal-btn'),
+      modalCategoryBadge: document.getElementById('modal-category-badge'),
+      modalHeadline: document.getElementById('modal-headline'),
+      modalSummary: document.getElementById('modal-summary'),
+      modalAuthorAvatar: document.getElementById('modal-author-avatar'),
+      modalAuthor: document.getElementById('modal-author'),
+      modalAuthorRole: document.getElementById('modal-author-role'),
+      modalDate: document.getElementById('modal-date'),
+      modalReadTime: document.getElementById('modal-read-time'),
+      modalImage: document.getElementById('modal-image'),
+      modalContent: document.getElementById('modal-content'),
+      modalShareBtn: document.getElementById('modal-share-btn'),
+      modalBookmarkBtn: document.getElementById('modal-bookmark-btn'),
+      modalBookmarkIcon: document.getElementById('modal-bookmark-icon'),
+      modalBookmarkLabel: document.getElementById('modal-bookmark-label'),
+      // Toast
+      toast: document.getElementById('toast'),
+      toastMessage: document.getElementById('toast-message')
+    };
+
+    /**
+     * Initialize theme from localStorage or system preference
+     */
+    function initTheme() {
+      try {
+        const savedTheme = localStorage.getItem('daily_pulse_theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (err) {
+        console.warn('Theme preference unavailable:', err);
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      try {
+        localStorage.setItem('daily_pulse_theme', isDark ? 'dark' : 'light');
+      } catch (err) {
+        console.warn('Could not persist theme:', err);
+      }
+    }
+
+    /**
+     * Load & Persist Bookmarked IDs in localStorage
+     */
+    function loadSavedArticles() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            state.savedIds = new Set(parsed);
+          }
+        }
+      } catch (err) {
+        console.warn('Error loading saved articles:', err);
+      }
+      updateSavedBadges();
+    }
+
+    function persistSavedArticles() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.savedIds]));
+      } catch (err) {
+        console.warn('Error persisting saved articles:', err);
+      }
+      updateSavedBadges();
+    }
+
+    function toggleBookmark(articleId, event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      const article = ARTICLES_DATA.find(a => a.id === articleId);
+      if (!article) return;
+
+      if (state.savedIds.has(articleId)) {
+        state.savedIds.delete(articleId);
+        showToast('Removed from Saved Articles');
+      } else {
+        state.savedIds.add(articleId);
+        showToast('Saved to reading list');
+      }
+
+      persistSavedArticles();
+      renderApp();
+      renderSavedDrawer();
+
+      if (state.activeModalArticleId === articleId) {
+        updateModalBookmarkState(articleId);
+      }
+    }
+
+    function updateSavedBadges() {
+      const count = state.savedIds.size;
+      elements.desktopSavedBadge.textContent = count;
+      elements.mobileSavedBadge.textContent = count;
+      if (count > 0) {
+        elements.mobileSavedBadge.classList.remove('hidden');
+      } else {
+        elements.mobileSavedBadge.classList.add('hidden');
+      }
+    }
+
+    /**
+     * Toast Feedback Helper
+     */
+    function showToast(message) {
+      elements.toastMessage.textContent = message;
+      elements.toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      elements.toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(state.toastTimer);
+      state.toastTimer = setTimeout(() => {
+        elements.toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+        elements.toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2600);
+    }
+
+    /**
+     * Category Badge Color Helper
+     */
+    function getCategoryBadgeClasses(category) {
+      const map = {
+        Technology: 'bg-sky-100 text-sky-800 dark:bg-sky-950/90 dark:text-sky-300',
+        World: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-950/90 dark:text-indigo-300',
+        Business: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/90 dark:text-emerald-300',
+        Science: 'bg-purple-100 text-purple-800 dark:bg-purple-950/90 dark:text-purple-300',
+        Sports: 'bg-amber-100 text-amber-800 dark:bg-amber-950/90 dark:text-amber-300',
+        Entertainment: 'bg-pink-100 text-pink-800 dark:bg-pink-950/90 dark:text-pink-300'
+      };
+      return map[category] || 'bg-rose-100 text-rose-800 dark:bg-rose-950/90 dark:text-rose-300';
+    }
+
+    /**
+     * Render Category Tabs
+     */
+    function renderCategoryTabs() {
+      elements.categoryTabs.innerHTML = CATEGORIES.map(cat => {
+        const isActive = state.selectedCategory === cat;
+        const baseClasses = 'px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all cursor-pointer';
+        const activeClasses = isActive
+          ? 'bg-slate-900 text-white dark:bg-rose-600 dark:text-white shadow-sm'
+          : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800';
+        return `<button data-category="${cat}" class="${baseClasses} ${activeClasses}">${cat}</button>`;
+      }).join('');
+
+      // Attach listeners
+      elements.categoryTabs.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedCategory = btn.dataset.category;
+          renderCategoryTabs();
+          renderApp();
+        });
+      });
+    }
+
+    /**
+     * Filter articles based on category and search query
+     */
+    function getFilteredArticles() {
+      const q = state.searchQuery.trim().toLowerCase();
+      return ARTICLES_DATA.filter(article => {
+        const matchesCategory = state.selectedCategory === 'All' || article.category === state.selectedCategory;
+        if (!matchesCategory) return false;
+        if (!q) return true;
+
+        return (
+          article.headline.toLowerCase().includes(q) ||
+          article.summary.toLowerCase().includes(q) ||
+          article.author.toLowerCase().includes(q) ||
+          article.category.toLowerCase().includes(q)
+        );
+      });
+    }
+
+    /**
+     * Render Hero Featured Card
+     */
+    function renderHeroCard(featuredArticle) {
+      if (!featuredArticle) {
+        elements.heroSection.classList.add('hidden');
+        return;
+      }
+
+      elements.heroSection.classList.remove('hidden');
+      const isSaved = state.savedIds.has(featuredArticle.id);
+
+      elements.heroSection.innerHTML = `
+        <div onclick="openArticleModal('${featuredArticle.id}')" class="group cursor-pointer relative rounded-3xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 grid grid-cols-1 lg:grid-cols-12">
+          <!-- Image Column -->
+          <div class="lg:col-span-7 relative overflow-hidden bg-slate-200 dark:bg-slate-800 min-h-[260px] sm:min-h-[360px]">
+            <img
+              src="${featuredArticle.image}"
+              alt="${featuredArticle.headline}"
+              onerror="this.src='https://placehold.co/1200x700/1e293b/f8fafc?text=Breaking+Story'"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div class="absolute top-4 left-4 flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-600 text-white shadow-md">
+                <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                Breaking / Top Story
+              </span>
+            </div>
+          </div>
+
+          <!-- Editorial Content Column -->
+          <div class="lg:col-span-5 p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${getCategoryBadgeClasses(featuredArticle.category)}">
+                  ${featuredArticle.category}
+                </span>
+                <button
+                  onclick="toggleBookmark('${featuredArticle.id}', event)"
+                  aria-label="${isSaved ? 'Remove bookmark' : 'Bookmark article'}"
+                  class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition ${isSaved ? 'text-rose-600 bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800' : 'text-slate-500 dark:text-slate-400'}"
+                >
+                  <svg class="w-5 h-5" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                </button>
+              </div>
+
+              <h1 class="font-serif text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                ${featuredArticle.headline}
+              </h1>
+
+              <p class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                ${featuredArticle.summary}
+              </p>
+            </div>
+
+            <div class="pt-5 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+              <div class="text-xs text-slate-500 dark:text-slate-400">
+                <span class="font-semibold text-slate-900 dark:text-slate-200 block">${featuredArticle.author}</span>
+                <span>${featuredArticle.timestamp} &bull; ${featuredArticle.readTime}</span>
+              </div>
+
+              <span class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-rose-600 text-white text-xs sm:text-sm font-semibold group-hover:bg-rose-600 dark:group-hover:bg-rose-500 transition-colors">
+                Read Full Story
+                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /**
+     * Render News Article Cards Grid
+     */
+    function renderArticlesGrid(articles) {
+      if (articles.length === 0) {
+        elements.articlesGrid.innerHTML = '';
+        elements.articlesGrid.classList.add('hidden');
+        elements.emptyState.classList.remove('hidden');
+        return;
+      }
+
+      elements.emptyState.classList.add('hidden');
+      elements.articlesGrid.classList.remove('hidden');
+
+      elements.articlesGrid.innerHTML = articles.map(article => {
+        const isSaved = state.savedIds.has(article.id);
+        return `
+          <article
+            onclick="openArticleModal('${article.id}')"
+            class="group cursor-pointer flex flex-col bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+          >
+            <!-- Card Thumbnail -->
+            <div class="relative aspect-16/10 overflow-hidden bg-slate-100 dark:bg-slate-800">
+              <img
+                src="${article.image}"
+                alt="${article.headline}"
+                loading="lazy"
+                onerror="this.src='https://placehold.co/800x520/1e293b/f8fafc?text=The+Daily+Pulse'"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-xs ${getCategoryBadgeClasses(article.category)}">
+                ${article.category}
+              </span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mb-2.5">
+                  <span>${article.timestamp}</span>
+                  <span>&bull;</span>
+                  <span>${article.readTime}</span>
+                </div>
+
+                <h3 class="font-serif text-lg sm:text-xl font-bold text-slate-900 dark:text-white leading-snug mb-2.5 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors line-clamp-3">
+                  ${article.headline}
+                </h3>
+
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 mb-5">
+                  ${article.summary}
+                </p>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                <span class="text-xs font-medium text-slate-700 dark:text-slate-300 truncate pr-2">
+                  By ${article.author}
+                </span>
+
+                <button
+                  onclick="toggleBookmark('${article.id}', event)"
+                  aria-label="${isSaved ? 'Remove from saved' : 'Save article'}"
+                  title="${isSaved ? 'Saved' : 'Save for later'}"
+                  class="p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition ${isSaved ? 'text-rose-600' : 'text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}"
+                >
+                  <svg class="w-5 h-5" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /**
+     * Main Render Coordinator
+     */
+    function renderApp() {
+      const filtered = getFilteredArticles();
+      const isDefaultFeed = state.selectedCategory === 'All' && state.searchQuery.trim() === '';
+
+      // Show/Hide filter status banner
+      if (!isDefaultFeed) {
+        elements.filterStatusBar.classList.remove('hidden');
+        const parts = [];
+        if (state.selectedCategory !== 'All') parts.push(`Category: "${state.selectedCategory}"`);
+        if (state.searchQuery.trim() !== '') parts.push(`Search: "${state.searchQuery.trim()}"`);
+        elements.filterStatusText.textContent = `Active Filters — ${parts.join(' • ')} (${filtered.length} result${filtered.length === 1 ? '' : 's'})`;
+      } else {
+        elements.filterStatusBar.classList.add('hidden');
+      }
+
+      // Featured story appears at top on default "All" feed; otherwise show all matching stories in grid
+      if (isDefaultFeed) {
+        const featured = filtered.find(a => a.featured) || filtered[0];
+        const remaining = filtered.filter(a => a.id !== featured?.id);
+        renderHeroCard(featured);
+        renderArticlesGrid(remaining);
+        elements.feedHeading.textContent = 'Latest Stories';
+        elements.articleCount.textContent = `Showing ${remaining.length} stories`;
+      } else {
+        renderHeroCard(null);
+        renderArticlesGrid(filtered);
+        elements.feedHeading.textContent = state.selectedCategory === 'All' ? 'Search Results' : `${state.selectedCategory} News`;
+        elements.articleCount.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? 'story' : 'stories'}`;
+      }
+    }
+
+    /**
+     * Article Reader Modal Controls
+     */
+    function openArticleModal(articleId) {
+      const article = ARTICLES_DATA.find(a => a.id === articleId);
+      if (!article) return;
+
+      state.activeModalArticleId = articleId;
+
+      elements.modalCategoryBadge.textContent = article.category;
+      elements.modalCategoryBadge.className = `px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${getCategoryBadgeClasses(article.category)}`;
+      elements.modalHeadline.textContent = article.headline;
+      elements.modalSummary.textContent = article.summary;
+      elements.modalAuthor.textContent = article.author;
+      elements.modalAuthorRole.textContent = article.authorRole;
+      elements.modalAuthorAvatar.textContent = article.author.split(' ').map(n => n[0]).join('').slice(0, 2);
+      elements.modalDate.textContent = article.publishDate;
+      elements.modalReadTime.textContent = article.readTime;
+      elements.modalImage.src = article.image;
+      elements.modalImage.alt = article.headline;
+
+      elements.modalContent.innerHTML = article.content
+        .map(paragraph => `<p>${paragraph}</p>`)
+        .join('');
+
+      updateModalBookmarkState(articleId);
+
+      elements.readerModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function updateModalBookmarkState(articleId) {
+      const isSaved = state.savedIds.has(articleId);
+      elements.modalBookmarkIcon.setAttribute('fill', isSaved ? 'currentColor' : 'none');
+      elements.modalBookmarkLabel.textContent = isSaved ? 'Saved' : 'Save';
+      if (isSaved) {
+        elements.modalBookmarkBtn.classList.add('text-rose-600', 'bg-rose-50', 'dark:bg-rose-950/50');
+      } else {
+        elements.modalBookmarkBtn.classList.remove('text-rose-600', 'bg-rose-50', 'dark:bg-rose-950/50');
+      }
+    }
+
+    function closeArticleModal() {
+      elements.readerModal.classList.add('hidden');
+      state.activeModalArticleId = null;
+      if (elements.savedDrawer.classList.contains('hidden')) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    /**
+     * Copy Share Link with Fallback for iFrame Environments
+     */
+    function handleShareArticle() {
+      const article = ARTICLES_DATA.find(a => a.id === state.activeModalArticleId);
+      if (!article) return;
+
+      const shareText = `${article.headline} — Read on The Daily Pulse (${window.location.href.split('#')[0]}#${article.id})`;
+      const tempInput = document.createElement('textarea');
+      tempInput.value = shareText;
+      tempInput.style.position = 'fixed';
+      tempInput.style.opacity = '0';
+      document.body.appendChild(tempInput);
+      tempInput.select();
+
+      try {
+        document.execCommand('copy');
+        showToast('Copied! Link ready to share');
+      } catch (err) {
+        showToast('Copied story link!');
+      } finally {
+        document.body.removeChild(tempInput);
+      }
+    }
+
+    /**
+     * Saved Articles Drawer Controls
+     */
+    function openSavedDrawer() {
+      renderSavedDrawer();
+      elements.savedDrawer.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeSavedDrawer() {
+      elements.savedDrawer.classList.add('hidden');
+      if (elements.readerModal.classList.contains('hidden')) {
+        document.body.classList.remove('overflow-hidden');
+      }
+    }
+
+    function renderSavedDrawer() {
+      const savedArticles = ARTICLES_DATA.filter(a => state.savedIds.has(a.id));
+
+      if (savedArticles.length === 0) {
+        elements.drawerFooter.classList.add('hidden');
+        elements.savedListContainer.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4">
+            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 mb-4">
+              <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
+            </div>
+            <h3 class="font-serif text-lg font-bold text-slate-900 dark:text-white mb-1">Your reading list is empty</h3>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-xs">
+              Click the bookmark icon on any story to save it here for offline or later reading.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      elements.drawerFooter.classList.remove('hidden');
+      elements.drawerCountLabel.textContent = `${savedArticles.length} ${savedArticles.length === 1 ? 'story' : 'stories'} saved`;
+
+      elements.savedListContainer.innerHTML = savedArticles.map(article => `
+        <div class="group flex gap-3.5 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200/80 dark:border-slate-700/80 hover:border-rose-300 dark:hover:border-rose-800 transition">
+          <img
+            src="${article.image}"
+            alt="${article.headline}"
+            onclick="closeSavedDrawer(); openArticleModal('${article.id}')"
+            class="w-20 h-20 rounded-xl object-cover shrink-0 cursor-pointer bg-slate-200 dark:bg-slate-700"
+          />
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+                ${article.category}
+              </span>
+              <button
+                onclick="toggleBookmark('${article.id}', event)"
+                aria-label="Remove saved article"
+                class="text-slate-400 hover:text-rose-600 transition p-1"
+                title="Remove"
+              >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
+            </div>
+            <h4
+              onclick="closeSavedDrawer(); openArticleModal('${article.id}')"
+              class="font-serif text-sm font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 cursor-pointer group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors"
+            >
+              ${article.headline}
+            </h4>
+            <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-1.5 block">
+              ${article.readTime}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /**
+     * Reset all search and category filters
+     */
+    function resetFilters() {
+      state.selectedCategory = 'All';
+      state.searchQuery = '';
+      elements.searchInput.value = '';
+      elements.clearSearchBtn.classList.add('hidden');
+      renderCategoryTabs();
+      renderApp();
+    }
+
+    /**
+     * Setup Event Listeners & Boot App
+     */
+    function initApp() {
+      // Set Formatted Editorial Date
+      const now = new Date();
+      elements.currentDate.textContent = now.toLocaleDateString('en-US', {
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+      elements.footerYear.textContent = now.getFullYear();
+
+      initTheme();
+      loadSavedArticles();
+      renderCategoryTabs();
+      renderApp();
+
+      // Theme Toggles
+      elements.desktopThemeToggle.addEventListener('click', toggleTheme);
+      elements.mobileThemeToggle.addEventListener('click', toggleTheme);
+
+      // Search Input Real-Time Filtering
+      elements.searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        if (state.searchQuery.length > 0) {
+          elements.clearSearchBtn.classList.remove('hidden');
+        } else {
+          elements.clearSearchBtn.classList.add('hidden');
+        }
+        renderApp();
+      });
+
+      elements.clearSearchBtn.addEventListener('click', () => {
+        state.searchQuery = '';
+        elements.searchInput.value = '';
+        elements.clearSearchBtn.classList.add('hidden');
+        elements.searchInput.focus();
+        renderApp();
+      });
+
+      // Reset Filter Buttons
+      elements.resetFiltersBtn.addEventListener('click', resetFilters);
+      elements.emptyResetBtn.addEventListener('click', resetFilters);
+      document.getElementById('brand-logo').addEventListener('click', (e) => {
+        e.preventDefault();
+        resetFilters();
+      });
+
+      // Saved Drawer Listeners
+      elements.desktopSavedBtn.addEventListener('click', openSavedDrawer);
+      elements.mobileSavedBtn.addEventListener('click', openSavedDrawer);
+      elements.closeDrawerBtn.addEventListener('click', closeSavedDrawer);
+      elements.drawerBackdrop.addEventListener('click', closeSavedDrawer);
+      elements.clearAllSavedBtn.addEventListener('click', () => {
+        state.savedIds.clear();
+        persistSavedArticles();
+        renderSavedDrawer();
+        renderApp();
+        if (state.activeModalArticleId) {
+          updateModalBookmarkState(state.activeModalArticleId);
+        }
+        showToast('Cleared all saved articles');
+      });
+
+      // Modal Listeners
+      elements.closeModalBtn.addEventListener('click', closeArticleModal);
+      elements.modalBackdrop.addEventListener('click', closeArticleModal);
+      elements.modalShareBtn.addEventListener('click', handleShareArticle);
+      elements.modalBookmarkBtn.addEventListener('click', () => {
+        if (state.activeModalArticleId) {
+          toggleBookmark(state.activeModalArticleId);
+        }
+      });
+
+      // Keyboard Escape Support
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!elements.readerModal.classList.contains('hidden')) {
+            closeArticleModal();
+          } else if (!elements.savedDrawer.classList.contains('hidden')) {
+            closeSavedDrawer();
+          }
+        }
+      });
+    }
+
+    // Boot application
+    initApp();
+  </script>
+
+  <style>
+    /* Hide horizontal scrollbar on category pill strip while preserving touch scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</body>
+</html>
